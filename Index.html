@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina</title>
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <main class="container">
+        <h1>Oficina</h1>
+        <section class="item-card" aria-labelledby="item-title">
+            <h2 id="item-title">Cadastrar item</h2>
+            <form>
+                <div class="form-field">
+                    <label for="item-name">Nome do item</label>
+                    <input id="item-name" name="item-name" type="text" required>
+                </div>
+                <div class="form-field">
+                    <label for="expiry-date">Data de validade</label>
+                    <input
+                        id="expiry-date"
+                        name="expiry-date"
+                        type="text"
+                        inputmode="numeric"
+                        pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
+                        title="Use o formato DD/MM/AAAA."
+                        aria-describedby="expiry-hint"
+                        required
+                    >
+                    <small id="expiry-hint">Digite a data no formato DD/MM/AAAA.</small>
+                </div>
+                <button type="submit">Cadastrar item</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
