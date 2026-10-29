@@ -1,0 +1,5 @@
+ver se o py ta no pc
+
+python -m pip install flask
+
+python mainCode.py
