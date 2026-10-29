@@ -9,9 +9,10 @@
 <body>
     <main class="container">
         <h1>Oficina</h1>
+
         <section class="item-card" aria-labelledby="item-title">
             <h2 id="item-title">Cadastrar item</h2>
-            <form>
+            <form id="form">
                 <div class="form-field">
                     <label for="item-name">Nome do item</label>
                     <input id="item-name" name="item-name" type="text" required>
@@ -33,6 +34,46 @@
                 <button type="submit">Cadastrar item</button>
             </form>
         </section>
+
+        <section class="item-card">
+            <h2>Itens cadastrados</h2>
+            <ul id="lista"></ul>
+            <button id="usar" type="button">Usar item</button>
+        </section>
     </main>
+
+    <script>
+        const lista = document.getElementById("lista");
+
+        async function carregar() {
+            const itens = await (await fetch("/itens")).json();
+            lista.innerHTML = "";
+            for (const item of itens) {
+                lista.innerHTML += `<li>${item.nome} - ${item.validade}</li>`;
+            }
+        }
+
+        document.getElementById("form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resposta = await fetch("/itens", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    nome: document.getElementById("item-name").value,
+                    validade: document.getElementById("expiry-date").value
+                })
+            });
+            if (!resposta.ok) alert("Data inválida");
+            else e.target.reset();
+            carregar();
+        });
+
+        document.getElementById("usar").addEventListener("click", async () => {
+            await fetch("/usar", { method: "POST" });
+            carregar();
+        });
+
+        carregar();
+    </script>
 </body>
 </html>
